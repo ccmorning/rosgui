@@ -1,7 +1,7 @@
 #ifndef T3_AF_FACE_H
 #define T3_AF_FACE_H
 
-#include "t3_af_config.h"
+#include "t3_af_config.hpp"
 #include <QDialog>
 
 namespace Ui {
@@ -16,10 +16,9 @@ public:
     explicit T3_AF_face(QDialog *mainWindow, QWidget *parent = 0);
     ~T3_AF_face();
 
-    void exitToMainWindow();
-
-private slots:
+private Q_SLOTS:
     void timeUpdate();
+    void exitToMainWindow();
 
 private:
     Ui::T3_AF_face *ui;

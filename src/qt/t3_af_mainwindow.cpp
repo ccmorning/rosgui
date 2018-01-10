@@ -1,4 +1,4 @@
-#include "t3_af_mainwindow.h"
+#include "../../include/rosgui/qt/t3_af_mainwindow.hpp"
 #include "ui_t3_af_mainwindow.h"
 
 //界面构造函数
@@ -18,16 +18,20 @@ T3_AF_mainWindow::T3_AF_mainWindow(QDialog *welcome, QWidget *parent) :
     ui->_timeLabel_->setText("");
     ui->_timeLabel_->setStyleSheet("color:white");
     ui->_exitPushBtn_->setText("");
+    ui->_exitPushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_exitPushBtn_->setStyleSheet("border-image:url(:/Pictures/mainWindow_back.png)");
     ui->_facePushBtn_->setText("");
+    ui->_facePushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_facePushBtn_->setStyleSheet("border-image:url(:/Pictures/mainWindow_face.png)");
     ui->_mapBackgroundLabel_->setText("");
     ui->_mapBackgroundLabel_->setStyleSheet("border-image:url(:/Pictures/mainWindow_mapBackground.png)");
     ui->_robotInfoPushBtn_->setText("");
+    ui->_robotInfoPushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_robotInfoPushBtn_->setStyleSheet("border-image:url(:/Pictures/mainWindow_robotInfo.png)");
     ui->_textLabel_->setText("");
     ui->_textLabel_->setStyleSheet("border-image:url(:/Pictures/mainWindow_text.png)");
     ui->_tempraturePushBtn_->setText("");
+    ui->_tempraturePushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_tempraturePushBtn_->setStyleSheet("background:transparent;border-width:0;border-style:outset;color:white");
     ui->_sunriseTitleLabel_->setText("日出");
     ui->_sunriseTitleLabel_->setStyleSheet("color:white");
@@ -54,7 +58,19 @@ T3_AF_mainWindow::T3_AF_mainWindow(QDialog *welcome, QWidget *parent) :
     ui->_qualityTitleLabel_->setText("空气质量");
     ui->_qualityTitleLabel_->setStyleSheet("color:white");
     ui->_mapPushBtn_->setText("");
+    ui->_mapPushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_mapPushBtn_->setStyleSheet("border-image:url(:/Pictures/mainWindow_map.png)");
+    //buttontest
+//    _button = new T3PushButton(this);
+//    QPalette pal = _button->palette();
+//    pal.setColor(QPalette::ButtonText, Qt::red);
+//    pal.setColor(QPalette::Button, Qt::green);
+//    _button->setPalette(pal);
+//    _button->setStyleSheet("");
+//    _button->setText("123");
+//    _button->setAutoDefault(true);
+//    _button->resize(100,100);
+//    _button->show();
     //界面浮现动画
     QPropertyAnimation *animation_ = new QPropertyAnimation(this, "windowOpacity");
     animation_->setDuration(300);
@@ -66,12 +82,12 @@ T3_AF_mainWindow::T3_AF_mainWindow(QDialog *welcome, QWidget *parent) :
     timer_->start(200);
     //链接ui部件与功能
     connect(timer_, SIGNAL(timeout()), this, SLOT(timeUpdate()));
-    connect(ui->_exitPushBtn_, &QPushButton::clicked, this, &T3_AF_mainWindow::exitToWelcome);
-    connect(ui->_facePushBtn_, &QPushButton::clicked, this, &T3_AF_mainWindow::toFace);
+    connect(ui->_exitPushBtn_, SIGNAL(clicked()), this, SLOT(exitToWelcome()));
+    connect(ui->_facePushBtn_, SIGNAL(clicked()), this, SLOT(toFace()));
     //connect(ui->_tempraturePushBtn_, &QPushButton::clicked, this, &T3_AF_mainWindow::toWeatherForecast);
-    connect(ui->_mapPushBtn_, &QPushButton::clicked, this, &T3_AF_mainWindow::toMap);
+    connect(ui->_mapPushBtn_, SIGNAL(clicked()), this, SLOT(toMap()));
     //connect(ui->_robotInfoPushBtn_, &QPushButton::clicked, this, &T3_AF_mainWindow::toRobotInfo);
-    connect(_weather, &T3_AF_getWeather::getReady, this, &T3_AF_mainWindow::weatherUpdate);
+    connect(_weather, SIGNAL(getReady(Today)), this, SLOT(weatherUpdate(Today)));
     //日志
     T3LOG("3+ 主界面构造");
 }
@@ -89,9 +105,11 @@ void T3_AF_mainWindow::timeUpdate()
 //更新天气
 void T3_AF_mainWindow::weatherUpdate(Today today)
 {
-    QString temprature_ = today._temprature_ + "℃";
+    QString temprature_ = today._temprature_ + QObject::trUtf8("℃");
     ui->_tempraturePushBtn_->setText(temprature_);
     ui->_wetLabel_->setText(today._wet_);
+
+
     ui->_windDirectionLabel_->setText(today._windDirection_);
     ui->_windForceLabel_->setText(today._windForce_);
     ui->_sunriseLabel_->setText(today._sunrise_);
@@ -151,6 +169,7 @@ T3_AF_mainWindow::~T3_AF_mainWindow()
 {
     delete ui;
     delete _weather;
+    //delete _button;
     //日志
     T3LOG("3- 主界面析构");
 }

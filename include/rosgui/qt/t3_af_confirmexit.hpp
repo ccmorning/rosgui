@@ -1,7 +1,7 @@
 #ifndef T3_AF_CONFIRMEXIT_H
 #define T3_AF_CONFIRMEXIT_H
 
-#include "t3_af_config.h"
+#include "t3_af_config.hpp"
 #include <QDialog>
 
 namespace Ui {
@@ -16,6 +16,7 @@ public:
     explicit T3_AF_confirmExit(QDialog *welcome, QDialog *mainWindow, QWidget *parent = 0);
     ~T3_AF_confirmExit();
 
+private Q_SLOTS:
     void confirmExit();
     void doNotExit();
 

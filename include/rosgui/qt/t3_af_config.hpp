@@ -7,7 +7,7 @@
 #include <QTimer>
 #include <QDateTime>
 #include <QMovie>
-#include "t3_af_getweather.h"
+#include "t3_af_getweather.hpp"
 
 //T3LOG
 #include <QDebug>

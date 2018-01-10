@@ -1,11 +1,11 @@
 #ifndef T3_AF_WELCOME_H
 #define T3_AF_WELCOME_H
 
-//#include "t3_af_config.h"
+#include "t3_af_config.hpp"
 #include <QDialog>
 
 //#include "t3_af_login.h"
-//#include "t3_af_mainwindow.h"
+#include "t3_af_mainwindow.hpp"
 
 namespace Ui {
 class T3_AF_welcome;

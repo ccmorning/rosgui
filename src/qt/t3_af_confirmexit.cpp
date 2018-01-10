@@ -1,4 +1,4 @@
-#include "t3_af_confirmexit.h"
+#include "../../include/rosgui/qt/t3_af_confirmexit.hpp"
 #include "ui_t3_af_confirmexit.h"
 
 //界面构造函数
@@ -15,8 +15,10 @@ T3_AF_confirmExit::T3_AF_confirmExit(QDialog *welcome, QDialog *mainWindow, QWid
     this->setWindowFlags(Qt::Window|Qt::FramelessWindowHint);
     this->setAttribute(Qt::WA_TranslucentBackground, true);
     ui->_yesPushBtn_->setText("");
+    ui->_yesPushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_yesPushBtn_->setStyleSheet("border-image:url(:/Pictures/confirmExit_yes.png)");
     ui->_noPushBtn_->setText("");
+    ui->_noPushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_noPushBtn_->setStyleSheet("border-image:url(:/Pictures/confirmExit_no.png)");
     ui->_confirmLabel_->setText("");
     ui->_confirmLabel_->setStyleSheet("border-image:url(:/Pictures/confirmExit_label.png)");
@@ -27,8 +29,8 @@ T3_AF_confirmExit::T3_AF_confirmExit(QDialog *welcome, QDialog *mainWindow, QWid
     animation_->setEndValue(0.9);
     animation_->start();
     //链接ui部件与功能
-    connect(ui->_yesPushBtn_, &QPushButton::clicked, this, &T3_AF_confirmExit::confirmExit);
-    connect(ui->_noPushBtn_, &QPushButton::clicked, this, &T3_AF_confirmExit::doNotExit);
+    connect(ui->_yesPushBtn_, SIGNAL(clicked()), this, SLOT(confirmExit()));
+    connect(ui->_noPushBtn_, SIGNAL(clicked()), this, SLOT(doNotExit()));
     //日志
     T3LOG("4+ 退出确认界面构造");
 }

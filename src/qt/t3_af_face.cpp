@@ -1,4 +1,4 @@
-#include "t3_af_face.h"
+#include "../../include/rosgui/qt/t3_af_face.hpp"
 #include "ui_t3_af_face.h"
 
 //界面构造函数
@@ -18,6 +18,7 @@ T3_AF_face::T3_AF_face(QDialog *mainWindow, QWidget *parent) :
     ui->_timeLabel_->setText("");
     ui->_timeLabel_->setStyleSheet("color:white");
     ui->_exitPushBtn_->setText("");
+    ui->_exitPushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_exitPushBtn_->setStyleSheet("border-image:url(:/Pictures/face_back.png)");
     ui->_faceGifLabel_->setText("");
     ui->_faceGifLabel_->setStyleSheet("border-image:url(:/Pictures/face_gif.png)");
@@ -40,7 +41,7 @@ T3_AF_face::T3_AF_face(QDialog *mainWindow, QWidget *parent) :
     timer_->start(200);
     //链接ui部件与功能
     connect(timer_, SIGNAL(timeout()), this, SLOT(timeUpdate()));
-    connect(ui->_exitPushBtn_, &QPushButton::clicked, this, &T3_AF_face::exitToMainWindow);
+    connect(ui->_exitPushBtn_, SIGNAL(clicked()), this, SLOT(exitToMainWindow()));
     //日志
     T3LOG("5+ 人脸界面构造");
 }

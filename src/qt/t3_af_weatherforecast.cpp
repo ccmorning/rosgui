@@ -1,4 +1,4 @@
-#include "t3_af_weatherforecast.h"
+#include "../../include/rosgui/qt/t3_af_weatherforecast.hpp"
 #include "ui_t3_af_weatherforecast.h"
 
 //界面构造函数
@@ -13,6 +13,7 @@ T3_AF_weatherForecast::T3_AF_weatherForecast(QDialog *mainWindow, QWidget *paren
     this->resize(800, 450);
     this->setWindowFlags(Qt::Window|Qt::FramelessWindowHint);
     ui->_exitPushBtn_->setText("");
+    ui->_exitPushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_exitPushBtn_->setStyleSheet("border-image:url(:/Pictures/weatherForecast_back.png)");
     ui->_dateTimeLabel_->setText("");
     ui->_dateTimeLabel_->setStyleSheet("color:rgb(7, 221, 225)");
@@ -27,7 +28,7 @@ T3_AF_weatherForecast::T3_AF_weatherForecast(QDialog *mainWindow, QWidget *paren
     timer_->start(200);
     //链接ui部件与功能
     connect(timer_, SIGNAL(timeout()), this, SLOT(timeUpdate()));
-    connect(ui->_exitPushBtn_, &QPushButton::clicked, this, &T3_AF_weatherForecast::exitToMainWindow);
+    connect(ui->_exitPushBtn_, SIGNAL(clicked()), this, SLOT(exitToMainWindow()));
     //日志
     T3LOG("6+ 天气界面构造");
 }

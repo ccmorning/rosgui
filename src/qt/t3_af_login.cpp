@@ -1,4 +1,4 @@
-#include "t3_af_login.h"
+#include "../../include/rosgui/qt/t3_af_login.hpp"
 #include "ui_t3_af_login.h"
 
 //界面构造函数
@@ -25,8 +25,10 @@ T3_AF_logIn::T3_AF_logIn(QDialog *welcome, QWidget *parent) :
     ui->_passwordLineEdit_->setText("666");
     ui->_passwordLineEdit_->setStyleSheet("background:transparent;border-width:0;border-style:outset;color:white");
     ui->_returnPushBtn_->setText("退出");
+    ui->_returnPushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_returnPushBtn_->setFlat(true);
     ui->_logInPushBtn_->setText("确定");
+    ui->_logInPushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_logInPushBtn_->setFlat(true);
     //EditLine限制
     QRegExp regx_("[a-zA-Z0-9]+$");
@@ -44,8 +46,8 @@ T3_AF_logIn::T3_AF_logIn(QDialog *welcome, QWidget *parent) :
     timer_->start(200);
     //链接ui部件与功能
     connect(timer_, SIGNAL(timeout()), this, SLOT(timeUpdate()));
-    connect(ui->_returnPushBtn_, &QPushButton::clicked, this, &T3_AF_logIn::backToWelcome);\
-    connect(ui->_logInPushBtn_, &QPushButton::clicked, this, &T3_AF_logIn::logIn);
+    connect(ui->_returnPushBtn_, SIGNAL(clicked()), this, SLOT(backToWelcome()));
+    connect(ui->_logInPushBtn_, SIGNAL(clicked()), this, SLOT(logIn()));
     //日志
     T3LOG("2+ 登录界面构造");
 }

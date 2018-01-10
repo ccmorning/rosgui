@@ -1,10 +1,12 @@
 //#include "t3_af_welcome.h"
 #include "ui_t3_af_welcome.h"
 #include "../../include/rosgui/qt/t3_af_welcome.hpp"
+
 #include <QPropertyAnimation>
 #include <QMovie>
 #include <QTimer>
 #include <QDateTime>
+
 //界面构造函数
 T3_AF_welcome::T3_AF_welcome(QWidget *parent) :
     QDialog(parent),
@@ -16,6 +18,7 @@ T3_AF_welcome::T3_AF_welcome(QWidget *parent) :
     this->resize(800, 450);
     this->setWindowFlags(Qt::Window|Qt::FramelessWindowHint);
     ui->_enterSystemPushBtn_->setText("");
+    ui->_enterSystemPushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_enterSystemPushBtn_->setStyleSheet("background:transparent;border-width:0;border-style:outset;color:white");
     ui->_gifLabel_->setText("");
     ui->_dateTimeLabel_->setText("");
@@ -35,12 +38,12 @@ T3_AF_welcome::T3_AF_welcome(QWidget *parent) :
     //定时器
     QTimer *timer_ = new QTimer(this);
     timer_->start(200);
-    //链接ui部件与功能
+    //链接ui部件与功能.
     connect(timer_, SIGNAL(timeout()), this, SLOT(timeUpdate()));
     connect(ui->_enterSystemPushBtn_,SIGNAL(clicked()), this, SLOT(enterSystem()));
    // connect(ui->_enterSystemPushBtn_, &QPushButton::clicked, this, &T3_AF_welcome::enterSystem);
     //日志
-//    T3LOG("1+ 欢迎界面构造");
+    T3LOG("1+ 欢迎界面构造");
 }
 
 //进入logIn
@@ -49,8 +52,8 @@ void T3_AF_welcome::enterSystem()
     //T3_AF_logIn *logIn_ = new T3_AF_logIn(this);
     //logIn_->show();
 
-//    T3_AF_mainWindow *mainWindow_ = new T3_AF_mainWindow(this);
-//    mainWindow_->show();
+    T3_AF_mainWindow *mainWindow_ = new T3_AF_mainWindow(this);
+    mainWindow_->show();
     this->close();
 }
 
@@ -67,5 +70,5 @@ T3_AF_welcome::~T3_AF_welcome()
 {
     delete ui;
     //日志
-//    T3LOG("1- 欢迎界面析构");
+    T3LOG("1- 欢迎界面析构");
 }

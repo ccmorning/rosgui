@@ -1,4 +1,4 @@
-#include "t3_af_getweather.h"
+#include "../../include/rosgui/qt/t3_af_getweather.hpp"
 #include "ui_t3_af_getweather.h"
 
 #include <QByteArray>
@@ -78,7 +78,7 @@ void T3_AF_getWeather::getWeather(QString result)
             else if("quality" == getWeather_.name())
             {
                 _today._quality_ = getWeather_.readElementText();
-                emit getReady(_today);
+                Q_EMIT getReady(_today);
                 //输出当日天气
                 qDebug() << _today._city_
                          << _today._pm25_

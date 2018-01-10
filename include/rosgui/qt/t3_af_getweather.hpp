@@ -1,7 +1,7 @@
 #ifndef T3_AF_GETWEATHER_H
 #define T3_AF_GETWEATHER_H
 
-#include "t3_af_config.h"
+#include "t3_af_config.hpp"
 #include <QDialog>
 
 #include <QNetworkAccessManager>
@@ -37,10 +37,10 @@ public:
 
     Today _today;
 
-signals:
+Q_SIGNALS:
     void getReady(Today today);
 
-private slots:
+private Q_SLOTS:
     void replayFinished(QNetworkReply *reply);
 
 private:

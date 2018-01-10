@@ -1,4 +1,4 @@
-#include "t3_af_robotinfo.h"
+#include "../../include/rosgui/qt/t3_af_robotinfo.hpp"
 #include "ui_t3_af_robotinfo.h"
 
 //界面构造函数
@@ -17,6 +17,7 @@ T3_AF_robotInfo::T3_AF_robotInfo(QDialog *mainWindow, QWidget *parent) :
     ui->_timeLabel_->setText("");
     ui->_timeLabel_->setStyleSheet("color:white");
     ui->_exitPushBtn_->setText("");
+    ui->_exitPushBtn_->setFocusPolicy(Qt::NoFocus);
     ui->_exitPushBtn_->setStyleSheet("border-image:url(:/Pictures/robotInfo_back.png)");
     //界面浮现动画
     QPropertyAnimation *animation_ = new QPropertyAnimation(this, "windowOpacity");
@@ -29,7 +30,7 @@ T3_AF_robotInfo::T3_AF_robotInfo(QDialog *mainWindow, QWidget *parent) :
     timer_->start(200);
     //链接ui部件与功能
     connect(timer_, SIGNAL(timeout()), this, SLOT(timeUpdate()));
-    connect(ui->_exitPushBtn_, &QPushButton::clicked, this, &T3_AF_robotInfo::exitToMainWindow);
+    connect(ui->_exitPushBtn_, SIGNAL(clicked()), this, SLOT(exitToMainWindow()));
     //日志
     T3LOG("8+ 机器人信息界面构造");
 }

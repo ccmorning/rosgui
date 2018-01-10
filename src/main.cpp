@@ -18,6 +18,14 @@
 ** Main
 *****************************************************************************/
 
+//解决乱码
+void setStringText()
+{
+    QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF8"));
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF8"));
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF8"));
+}
+
 int main(int argc, char **argv) {
 
     /*********************
@@ -25,9 +33,10 @@ int main(int argc, char **argv) {
     **********************/
     QApplication app(argc, argv);
     rosgui::MainWindow w(argc,argv);
-    w.show();
-    T3_AF_welcome aa;
-    aa.show();
+    //w.show();
+    setStringText();
+    T3_AF_welcome welcome_;
+    welcome_.show();
     app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
     int result = app.exec();
 
